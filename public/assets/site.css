@@ -1,0 +1,67 @@
+/* Prestige Transportation: page CSS. Only what sits inside a visual or the kit lacks (system.md); every token,
+   size and colour comes from system.css and the :root block in app/layout.tsx. */
+
+/* the client's own logo (stacked PT mark with the name): in the bar and, larger, in the footer */
+.nav__logo img { height: 56px; width: auto; }
+@media (max-width: 639px) { .nav__logo img { height: 44px; } }
+.footer__logo img { height: 112px; }
+@media (max-width: 639px) { .footer__logo img { height: 64px; } }
+.nav__phone { font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media (max-width: 1199px) { .nav__phone { display: none; } }
+
+/* services: the list's closing link, and the photograph as tall as the column beside it */
+.services__link { margin-top: var(--s-6); }
+.services__photo { aspect-ratio: 1 / 1; }
+@media (max-width: 1023px) { .services__photo { aspect-ratio: 3 / 2; margin-top: var(--s-7); } }
+
+/* booking steps: the number before the step's name */
+.steps-list { list-style: none; padding: 0; }
+.steps-list .rows__name { display: flex; align-items: center; gap: var(--s-4); }
+
+
+/* picture-develops: the section's one photograph, on the split's right column, as tall as the text beside it */
+.develop { margin: 0; border-radius: var(--r-lg); overflow: hidden; height: min(560px, var(--ly-fit, 560px)); }
+.develop > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 1023px) { .develop { height: auto; aspect-ratio: 4 / 3; margin-top: var(--s-7); } }
+
+/* bookings: the contact lines on the left, the form on the alternate ground on the right */
+.contact-list { display: grid; gap: var(--s-5); margin: var(--s-7) 0 0; }
+.contact-list dt { font-size: var(--t-label); font-weight: 500; color: var(--muted); }
+.contact-list dd { margin: var(--s-1) 0 0; font-size: var(--t-lead); line-height: 1.5; }
+.contact-list address { font-style: normal; }
+.contact-list dd { overflow-wrap: anywhere; }
+@media (max-width: 1023px) { .book__form { margin-top: var(--s-7); } }
+
+/* the fleet's linked tiles lift 2px with their photograph's zoom (motion.css zooms the photograph) */
+html:not([data-motion="off"]) a.tile { transition: transform 180ms var(--m-ease, ease); }
+@media (hover: hover) and (pointer: fine) { html:not([data-motion="off"]) a.tile:hover { transform: translateY(-2px); } }
+
+/* the tablet held upright (640 to 1023): the splits stay side by side, 6/6, so each section keeps one screen */
+@media (min-width: 640px) and (max-width: 1023px) {
+  :is(#services, #how, #book) > .wrap.grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :is(#services, #how, #book) > .wrap.grid > * { grid-column: auto; margin-top: 0; }
+  .services__photo { aspect-ratio: 4 / 5; }
+  .develop { aspect-ratio: auto; height: calc(100svh - 360px); }
+  #book .form { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  #book .contact-list { gap: var(--s-6); }
+  /* the fleet stays three across in one screen, each tile upright */
+  #fleet .fleet { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #fleet .fleet > .tile { grid-column: auto; }
+  #fleet .tile__media { --tile-ratio: 2 / 3; }
+}
+/* a phone: the fleet's three tiles stack into two screens; the footer's logo and line get smaller */
+@media (max-width: 639px) {
+  #fleet { --hm: 2; }
+  #fleet .fleet > .tile { grid-column: 1 / -1; }
+  #fleet .tile__media { --tile-ratio: 16 / 9; }
+  .hero--photo { --photo: min(320px, calc(100svh - 524px)); }
+  .services__photo { aspect-ratio: 4 / 5; margin-top: var(--s-6); }
+  .develop { aspect-ratio: 16 / 9; margin-top: var(--s-6); }
+  #how .section-head > p { display: none; }
+}
+@media (max-width: 1023px) { .closing__links .footer__lede { display: none; } }
+
+/* the privacy and credits pages: one plain column under the bar */
+.legal__page { height: auto; min-height: 100svh; }
+.legal__page h1 { font-size: var(--t-h2); margin: var(--s-6) 0 var(--s-7); }
+.legal__page h2 { font-size: var(--t-h3); margin-top: var(--s-7); }
